@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html  ng-app="brApp">
+<head lang="en">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+     <link rel="stylesheet" href="assets/css/styles.min.css"  media="screen,projection"/>
+     <link rel="stylesheet" href="assets/css/styles.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Esporte Clube Vitória</title>
+</head>
+<body ng-controller="primeiroCtrl">
+
+<div class="row container-main center-align">
+  <nav>
+    <div class="nav-wrapper logo-e-links">
+      <a href="#!" class="brand-logo center">Esporte Clube Vitória</a>
+      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="sass.html">Classificação</a></li>
+        <li><a href="badges.html">Vídeos</a></li>
+        <li><a href="collapsible.html">Elenco</a></li>
+        <li><a href="mobile.html">Fotos</a></li>
+      </ul>
+      <ul class="side-nav" id="mobile-demo">
+        <li><a href="sass.html">Classificação</a></li>
+        <li><a href="badges.html">Vídeos</a></li>
+        <li><a href="collapsible.html">Elenco</a></li>
+        <li><a href="mobile.html">Fotos</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <h1 class="">vitória notícias</h1>
+  <p class="">Bem vindo ao portal de notícias sobre o Esporte Clube Vitória.</p>
+<a class="waves-effect waves-light btn-large">Acessar</a>
+<p><img class="materialboxed" src="escudo-do-vitoria-time.png"   alt="ss"></p>
+
+</div>
+<div class="row section-two">
+    <div class="container tabela-classific center-align">
+                <h2>Tabela de Classificação</h2>
+                <p>Tabela atualizada do brasileiro série b</p>
+<table class="striped centered">
+        <thead>
+          <tr>
+              <th data-field="id">Pontos</th>
+              <th data-field="name">Time</th>
+              <th data-field="price">Jogos</th>
+          </tr>
+        </thead>
+
+        <tbody >
+          <tr ng-repeat="time in times">
+            <td> {{time.pontos}} </td>
+            <td>{{time.nome}}</td>
+            <td> {{time.jogos}} </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+</div>
+
+<div class="row videos-section">
+  <div class="container">
+    <h2>Vídeos</h2>
+    <p><span>Vídeos do jogo Vitória 3 x 1 CRB</span></p>
+    <div class="col s12 m3 l3">
+              <iframe width="420" height="315" src="https://www.youtube.com/embed/nZdPBn9hrLs?controls=0" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div class="col s12 m3 l3">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/1onp6tGl9wQ?controls=0" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div class="col s12 m3 l3">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/D2Fz24mbegQ?controls=0" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div class="col s12 m3 l3">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/bbDk4ZKVktc?controls=0" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+
+<div class="row elenco-section">
+  <div class="container">
+  <div class="divider"></div>
+    <h2>Elenco</h2>
+    <p><span>Elenco Esporte Clube Vitória</span></p>
+
+    <div class="col s12 m12 l12 goleiros">
+     <p><span>Goleiros</span></p>
+    <ul ng-repeat="goleiro in goleiros">
+      <li >Nome: {{goleiro.nome}}</li>
+    </ul>
+    </div>
+
+  </div>
+</div>
+<!-- <div class="container classificacao">
+  <div class="row">
+      <div class="s12 m12">
+        <h2>Classificação</h2>
+  <ul class="collection" ng-repeat="time in times">
+    <li class="collection-item avatar">
+      <img ng-src="{{ time.images }}" height="45" width="45" alt="" class="circle">
+      <span class="title">1º</span>
+      <p>{{time.nome}} <br>
+         {{time.pontos}}
+      </p>
+      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+    </li>
+  </ul>
+      </div>
+  </div>
+</div> -->
+
+    <script src="assets/js/scripts.min.js"></script>
+    <script>
+    $(document).ready(function(){
+$(".button-collapse").sideNav();
+    });
+    angular.module("brApp", []);
+    angular.module("brApp").controller("primeiroCtrl", function($scope, $http){
+        // $scope.nome = "Hello";
+        $scope.times = [];
+        $scope.goleiros = [];
+        loadCloudData();
+        goleirosEcv();
+
+           function loadCloudData() {
+                $http.get('assets/data/times.json')
+                .success(function (data){
+                    $scope.times = angular.fromJson(data);
+                })
+                .catch(function(){
+                    alert("falhou");
+                });
+            }
+                       function goleirosEcv() {
+                $http.get('assets/data/goleiros.json')
+                .success(function (data){
+                    $scope.goleiros = angular.fromJson(data);
+                })
+                .catch(function(){
+                    alert("falhou");
+                });
+            }
+    });
+
+
+    </script>
+
+</body>
+</html>
