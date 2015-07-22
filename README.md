@@ -8,4 +8,5 @@ Tecnologias:
  - HTML5
  - CSS3
  - AngularJS
+ <br>
  V.1.0
